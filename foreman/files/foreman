@@ -1,0 +1,31 @@
+# Start foreman on boot?
+{%- from "foreman/map.jinja" import server with context %}
+
+{%- if server.bind is defined %}
+START=yes
+{%- else %}
+START=no
+{%- endif %}
+
+# the location where foreman is installed
+FOREMAN_HOME=/usr/share/foreman
+
+# the network interface which foreman web server is running at
+# the port which foreman web server is running at
+# note that if the foreman user is not root, it has to be a > 1024
+# For non-root port 80, consider using Apache+Passenger
+{%- if server.bind is defined %}
+FOREMAN_IFACE={{ server.bind.get('address', '0.0.0.0') }}
+FOREMAN_PORT={{ server.bind.get('port', '3000') }}
+{%- else %}
+FOREMAN_IFACE=0.0.0.0
+FOREMAN_PORT=3000
+{%- endif %}
+
+# the user which runs the web interface
+FOREMAN_USER=foreman
+
+# the rails environment in which foreman runs
+FOREMAN_ENV=production
+
+SSL_CLIENT_VERIFY=false

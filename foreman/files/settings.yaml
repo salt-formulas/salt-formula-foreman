@@ -1,0 +1,24 @@
+{%- from "foreman/map.jinja" import server with context %}
+---
+#your default puppet server - can be overridden in the host level
+#if none specified, plain "puppet" will be used.
+#:puppet_server: puppet
+:unattended: true
+:puppetconfdir: /etc/puppet/puppet.conf
+:login: true
+
+:locations_enabled: false
+:organizations_enabled: false
+
+:oauth_active: false
+:oauth_map_users: false
+:oauth_consumer_key: QbRDjz3tPpi2z9H6t7uNC9McCrgZVrrj
+:oauth_consumer_secret: 9nzcnfjnYXGKDPZX3D6L5ARFhdZa5UZJ
+
+:require_ssl: false
+{%- for plugin in server.get('plugins', []) %}
+:{{ plugin }}_enabled: true
+{%- endfor %}
+
+:domain: '{{ server.get("domain", "localdomain.net") }}'
+:fqdn: '{{ server.get("fqdn", "localhost.localdomain.net") }}'

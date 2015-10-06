@@ -1,0 +1,36 @@
+{%- load_yaml as raw_server %}
+Debian:
+  params_basic:
+    - verbose
+    - no-colors
+  service: foreman
+  pkgs:
+  - foreman-installer
+  - foreman-compute
+  - foreman-libvirt
+  - foreman-ovirt
+  - foreman-vmware
+  - foreman-console
+  - foreman-cli
+  - foreman
+  - ruby-foreman-memcache
+  - ruby-foreman-templates
+  pkg_postgresql: foreman-postgresql
+  pkg_sqlite: foreman-sqlite
+  pkg_mysql: foreman-mysql2
+{%- endload %}
+
+{%- load_yaml as raw_smart_proxy %}
+Debian:
+  pkgs:
+  - foreman-proxy
+  config_file: /etc/foreman-proxy/settings.yml
+  service: foreman-proxy
+  bind:
+    port: 8443
+  proxy: {}
+{%- endload %}
+
+{%- set server = salt['grains.filter_by'](raw_server, merge=salt['pillar.get']('foreman:server')) %}
+
+{%- set smart_proxy = salt['grains.filter_by'](raw_smart_proxy, merge=salt['pillar.get']('foreman:smart_proxy')) %}
