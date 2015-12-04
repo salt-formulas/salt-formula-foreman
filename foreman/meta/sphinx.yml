@@ -1,0 +1,14 @@
+doc:
+  name: Foreman
+  description: Foreman is aimed to be a Single Address For All Machines Life Cycle Management.
+  role:
+  {%- if pillar.foreman.server is defined %}
+    server:
+      name: server
+      param: {}
+  {%- endif %}
+  {%- if pillar.foreman.smart_proxy is defined %}
+    smart_proxy:
+      name: smart_proxy
+      param: {}
+  {%- endif %}
