@@ -1,2 +1,0 @@
-foreman/*             /usr/share/salt-formulas/env/foreman/
-metadata/service/*      /usr/share/salt-formulas/reclass/service/foreman/
