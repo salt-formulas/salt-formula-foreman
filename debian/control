@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-foreman.git
 
 Package: salt-formula-foreman
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: Foreman Salt formula
  Install and configure Foreman server and client.
